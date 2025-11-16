@@ -1,10 +1,8 @@
 import sys
 from threading import Thread
 
-import DobotAPI
-import DobotTypes
-import getDisMap
-from DobotSession import DobotSession
+from sdk import DobotAPI, DobotTypes
+from sdk.DobotSession import DobotSession
 
 
 class DobotControl(Thread):
@@ -165,7 +163,7 @@ class DobotControl(Thread):
         if self.dobot.SetLostStepCmd():
             self.dobot.ResetPose(0, 0, 0)
 
-    def setColotSensor(self, output_port, input_left, input_right, enable=True):
+    def setColorSensor(self, output_port, input_left, input_right, enable=True):
         self.color_sensor = (output_port, input_left, input_right, enable)
         self.dobot.SetIOMultiplexingEx(output_port, DobotTypes.IOFunction.IOFunctionDO, 1)
         self.dobot.SetIOMultiplexingEx(input_left, DobotTypes.IOFunction.IOFunctionDI, 1)

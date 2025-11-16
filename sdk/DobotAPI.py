@@ -28,18 +28,17 @@ def os_bits():
     return machine2bits.get(machine, None)
 
 
-pre_path = './' + platform.system() + '/x' + str(os_bits()) + '/'
+pre_path = os.path.join(os.path.dirname(__file__), "")
 
 
 def load(dobotId=0, split="_"):
     def getRequiredPath(path):
         spt = path.split('.')
-        req = pre_path + '.'.join(spt[:-1]) + split + str(dobotId) + '.' + spt[-1]
+        filename = '.'.join(spt[:-1]) + split + str(dobotId) + '.' + spt[-1]
+        req = os.path.join(pre_path, filename)
         if not os.path.exists(req):
-            shutil.copyfile(pre_path + path, req)
-        # print(req)
+            shutil.copyfile(os.path.join(pre_path, path), req)
         return req
-
     if platform.system() == "Windows":
         require = getRequiredPath("DobotDll.dll")
         return CDLL(require, RTLD_GLOBAL)

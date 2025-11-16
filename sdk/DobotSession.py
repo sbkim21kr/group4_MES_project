@@ -1,7 +1,7 @@
 from typing import List
 
-import DobotAPI
-import DobotTypes
+from . import DobotAPI
+from . import DobotTypes
 
 
 class DobotSession:
